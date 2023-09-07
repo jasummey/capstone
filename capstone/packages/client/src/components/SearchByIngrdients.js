@@ -39,3 +39,4 @@ function SearchByIngredients() {
 }
 
 export default SearchByIngredients;
+
