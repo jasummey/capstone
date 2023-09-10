@@ -9,7 +9,7 @@ return (
     <div className="card-body">
         {/* <span className="category">{strCategory}</span> */}
         <h3>{strMeal}</h3>
-        {<a href={"https://themealdb.com/meal/" + idMeal} target = "_blank">Ingridients</a> }
+        {<a href={"https://themealdb.com/meal/" + idMeal} target = "_blank">Ingredients</a> }
     </div>
     </div>
 )
