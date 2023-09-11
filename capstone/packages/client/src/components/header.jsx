@@ -19,7 +19,7 @@ export default function AppHeader ()
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="navigation">
             <Nav.Link href="#home">Home  </Nav.Link>
-              <Nav.Link href="#link">Add Your Recipe  </Nav.Link> 
+              <Nav.Link href="#link">Add Your Recipe</Nav.Link> 
               <NavDropdown title="Search" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#ingredient">By Ingredient</NavDropdown.Item>
                 <NavDropdown.Item href="#meal">
