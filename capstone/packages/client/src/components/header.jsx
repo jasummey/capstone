@@ -1,3 +1,4 @@
+
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -30,6 +31,7 @@ export default function AppHeader ()
               <Nav.Link href="#login"> {" "}<img  src="person.png" width= "25 " height="25" className = "person-image" alt="person"></img></Nav.Link>
             </Nav>
           </Navbar.Collapse>
+        
         </Container>
       </Navbar>
     )
