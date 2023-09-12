@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 import { DB_URL } from "./config/db";
 import { API_URL, PORT } from "./config/app";
 import router from "./routes/index";
+import seedDatabase from './seedDatabase'
+import keys from './config/keys'
 
 mongoose
   .connect(DB_URL)
