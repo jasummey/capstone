@@ -34,7 +34,7 @@ return (<div className= "container">
   <header id="header"> 
     <AppHeader />
   </header>
-  {/* <div style={{ display: 'block', width: 1200, padding: 2 }}>
+  <div style={{ display: 'block', width: 1200, padding: 2 }}>
       <Carousel>
         <Carousel.Item interval={2000}>
           <img
@@ -52,7 +52,7 @@ src="image11.jpeg"
   
         </Carousel.Item>
       </Carousel>
-    </div> */}
+    </div>
 
  <SearchBar 
  handleSubmit ={handleSubmit}
