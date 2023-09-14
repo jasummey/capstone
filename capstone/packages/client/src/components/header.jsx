@@ -8,11 +8,11 @@ import Navigation from './Navigation'
 export default function AppHeader ()
 {
     return ( 
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar bg="light" data-bs-theme="light" expand="lg" className="bg-body-tertiary">
         <Container>
           <Navbar.Brand href="#home">
             <img src= "./packages/client/src/logo.png" width="125" height="125"
-            className='d-inline-block align-center' alt="Logo"/> 
+            className='d-inline-block align-left mr-2' alt="Logo"/> 
             <span className="d-inline-block mr-2"> Menu Maker</span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

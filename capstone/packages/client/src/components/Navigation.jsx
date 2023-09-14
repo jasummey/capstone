@@ -4,6 +4,7 @@ import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import "./Navigation.css"
 
 function Navigation() {
   return (
@@ -17,7 +18,7 @@ function Navigation() {
         <NavDropdown.Divider />
       </NavDropdown>
       <Nav.Link href="#login">
-        <img src="person.png" width="25" height="25" className="person-image" alt="person" />
+        <img src="person.png" width="30" height="30" className="person-image" alt="person" />
       </Nav.Link>
     </Nav>
   );
