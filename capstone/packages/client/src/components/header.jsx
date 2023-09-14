@@ -8,7 +8,7 @@ import Navigation from './Navigation'
 export default function AppHeader ()
 {
     return ( 
-        <Navbar bg="light" data-bs-theme="light" expand="lg" className="bg-body-tertiary">
+        <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
           <Navbar.Brand href="#home">
             <img src= "./packages/client/src/logo.png" width="125" height="125"
