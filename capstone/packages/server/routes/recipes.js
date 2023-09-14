@@ -2,6 +2,7 @@ import { Router } from "express";
 const router = Router();
 
 import Recipe from "../models/Recipe";
+import Comment from "../models/Comment";
 
 // list of all recipes
 router.get("/", async (req, res) => {
@@ -100,6 +101,39 @@ router.put("/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// Route to get and post comments by recipe ID
+router.get("/:id/comments", async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const comments = await Comment.find({ recipeId }); // Assuming Comment model has a 'recipeId' field
+    res.json(comments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Post a new comment for a recipe
+router.post("/:id/comments", async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const { text, author } = req.body;
+
+    const newComment = new Comment({
+      recipeId,
+      text,
+      author,
+    });
+
+    const savedComment = await newComment.save();
+    res.status(201).json(savedComment);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 // Route to delete a recipe by ID
 router.delete("/:id", async (req, res) => {
