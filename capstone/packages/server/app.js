@@ -1,21 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
-import bodyParser from "body-parser";
 import cors from "cors";
-import apiRouter from "./routes/index.js";
-
-const app = express();
-
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
-
-// Database connection setup
-const MONGODB_URI =
-  "mongodb+srv://jasummey:Abandon33@cluster0.af2sabl.mongodb.net/capstone?retryWrites=true&w=majority";
+import { API_URL } from "./config/app";
+import { PORT } from "./config/app";
+import { DB_URL } from "./config/db";
+import router from "./routes/index";
 
 mongoose
-  .connect(MONGODB_URI, {
+  .connect(DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -23,20 +15,19 @@ mongoose
     console.log("Connected to MongoDB");
   })
   .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
+    console.log("Error connecting to MongoDB:", error);
   });
 
-// API routes setup
-app.use("/api", apiRouter);
+const app = express();
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Something went wrong!");
-});
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const PORT = process.env.PORT || 5000;
+app.use(API_URL, router);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+app.listen(PORT, () =>
+  console.log(`[Server] Listening for requests at https://localhost:${PORT}`)
+);
+
+export default app;
