@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./RecipeDetail.css";
 import { Link } from "react-router-dom";
+import AppHeader from "../Header/header";
+import { Navbar, Container } from "react-bootstrap";
+
 
 const RecipeDetail = () => {
   const { recipeId } = useParams();
@@ -33,9 +36,11 @@ const RecipeDetail = () => {
       ingredients.push({ ingredient, measure });
     }
   }
+  
+
 
   return (
-    <div className="recipe-detail-container my-5">
+    <div className="recipe-detail-container ">
       <div className="d-flex justify-content-center">
         <div className="recipe-card">
           <img src={strMealThumb} alt={strMeal} className="recipe-card-img-top" />

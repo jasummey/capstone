@@ -24,11 +24,11 @@ a:hover {
 }
 
 body {
-  margin: auto;
-  display: flex;
+ display: block;
+ justify-content:center;
   max-width: 100%;
-  max-width: 100%;
-  justify-content:center;
+ flex-direction: column-reverse;
+
 }
 
 h1 {
