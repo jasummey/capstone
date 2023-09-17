@@ -32,9 +32,7 @@ function App() {
   }
 
   return (<div className="container">
-    <header id="header">
-      <AppHeader />
-    </header>
+ 
     <Slides  recipes={recipes}/>
     <div style={{ display: 'block', width: 922, padding: 1 }}>
     </div>
