@@ -1,8 +1,8 @@
 import { Router } from "express";
 const router = Router();
 
-import Recipe from "../models/Recipe";
-import Comment from "../models/Comment";
+import Recipe from "../models/recipes.js";
+import Comment from "../models/comments.js";
 
 // list of all recipes
 router.get("/", async (req, res) => {
@@ -133,7 +133,6 @@ router.post("/:id/comments", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 // Route to delete a recipe by ID
 router.delete("/:id", async (req, res) => {

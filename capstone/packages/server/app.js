@@ -1,10 +1,11 @@
+import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import { API_URL } from "./config/app";
-import { PORT } from "./config/app";
-import { DB_URL } from "./config/db";
-import router from "./routes/index";
+import { API_URL, PORT } from "./config/app.js";
+
+import router from "./routes/index.js";
+import { DB_URL } from "./config/db.js";
 
 mongoose
   .connect(DB_URL, {
@@ -15,7 +16,7 @@ mongoose
     console.log("Connected to MongoDB");
   })
   .catch((error) => {
-    console.log("Error connecting to MongoDB:", error);
+    console.error("Error connecting to MongoDB:", error);
   });
 
 const app = express();
@@ -26,8 +27,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(API_URL, router);
 
-app.listen(PORT, () =>
-  console.log(`[Server] Listening for requests at https://localhost:${PORT}`)
-);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 export default app;
