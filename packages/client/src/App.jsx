@@ -5,13 +5,15 @@ import SearchBar from "./components/SearchBar/SearchBar"
 import RecipeCard from "./components/RecipeCard/RecipeCard"
 import AppHeader from './components/Header/header'
 import Slides from './components/Slides/Slides'
+import Login from './components/Login/login'
+import Register from './components/Register/register'
+import Modal from 'react-modal'
 
 const apiUrl = "https://www.themealdb.com/api/json/v1/1/search.php?s="
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [recipes, setRecipes] = useState([]);
-
 
   const searchRecipes = async () => {
     setIsLoading(true);
@@ -32,11 +34,10 @@ function App() {
   }
 
   return (<div className="container">
- 
+     
     <Slides  recipes={recipes}/>
     <div style={{ display: 'block', width: 922, padding: 1 }}>
     </div>
-
     <SearchBar
       handleSubmit={handleSubmit}
       value={query}

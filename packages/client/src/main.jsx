@@ -9,7 +9,7 @@ import AppHeader from './components/Header/header.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AppHeader /> 
+    <AppHeader />  
     <Router>
       <Routes>
         <Route exact path="/" element={<App />} />
