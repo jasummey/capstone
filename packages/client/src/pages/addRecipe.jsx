@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../pages/addRecipe.css"
 
 const RecipeForm = () => {
   const [recipe, setRecipe] = useState({
@@ -21,8 +22,8 @@ const RecipeForm = () => {
   };
 
   return (
-    <div>
-      <h1>Create a New Recipe</h1>
+    <div className="new-recipe">
+      <h2>Create a New Recipe</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="recipeName">Recipe Name:</label>
         <input
