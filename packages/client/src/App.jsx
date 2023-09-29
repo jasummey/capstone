@@ -1,59 +1,30 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useState, useEffect } from "react"
-import SearchBar from "./components/SearchBar/SearchBar"
-import RecipeCard from "./components/RecipeCard/RecipeCard"
-import AppHeader from './components/Header/header'
-import Slides from './components/Slides/Slides'
-import Login from './components/Login/login'
-import Register from './components/Register/register'
-import Modal from 'react-modal'
+import { Header } from './components';
+import RecipeDetail from './components/RecipeDetails/RecipeDetail';
+import { LoginPage, RegisterPage, HomePage} from './pages';
+import { Routes,Route } from 'react-router-dom';
+import RecipeForm from './pages/addRecipe';
+import Dashboard from './pages/Dashboard';
 
-const apiUrl = "https://www.themealdb.com/api/json/v1/1/search.php?s="
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [query, setQuery] = useState("");
-  const [recipes, setRecipes] = useState([]);
+  return (
+  <>
+<Header />
 
-  const searchRecipes = async () => {
-    setIsLoading(true);
-    const url = apiUrl + query;
-    const res = await fetch(url);
-    const data = await res.json();
-    console.log (data.strMealThumb)
-    setRecipes(data.meals);
-    setIsLoading(false)
-  };
-  useEffect(() => {
-    searchRecipes()
-  }, [])
-
-  const handleSubmit = event => {
-    event.preventDefault()
-    searchRecipes()
-  }
-
-  return (<div className="container">
-     
-    <Slides  recipes={recipes}/>
-    <div style={{ display: 'block', width: 922, padding: 1 }}>
-    </div>
-    <SearchBar
-      handleSubmit={handleSubmit}
-      value={query}
-      onChange={event => setQuery(event.target.value)}
-      isLoading={isLoading} />
-    <div className="recipes">
-      {recipes ? recipes.map(recipe => (
-        <RecipeCard
-          key={recipe.idMeal} recipe={recipe} />
-      ))
-        : "No Recipes!"}
-
-    </div>
-  </div>)
+<Routes>
+  <Route exact path="/" element = {<HomePage />} />
+  <Route path="/dashboard" element = {<Dashboard />} />
+  <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
+  <Route path="/signup" element= {<RegisterPage />} />
+  <Route path="/addrecipe" element ={< RecipeForm/>} />
+  <Route path="/signin" element= {<LoginPage />} /> 
+</Routes>
+</>)
 }
 
 
 
 export default App
+
+

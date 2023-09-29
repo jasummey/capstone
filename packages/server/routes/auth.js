@@ -1,31 +1,33 @@
 // authRoutes.js
-import express from 'express'
+import {Router}from 'express'
+import validateSignUp from '../middleware/validateSignUp';
+import { signUp } from '../controllers/auth.controller';
+import { signIn } from '../controllers/auth.controller';
+import validateSignIn from '../middleware/validateSignIn';
 
+const authRoutes = Router();
 
-const router = express.Router();
+authRoutes.post ("/signup", validateSignUp, signUp)
+authRoutes.post ("/signin", validateSignIn, signIn)
+// authRoutes.post('/signup', (req, res) => {
+//   const { username, password } = req.body;
 
-// Simulated user data (replace with a database)
-const users = [];
+//   // Simulate registration by adding the user to the 'users' array
+//   users.push({ username, password });
+//   res.status(201).json({ message: 'User registered' });
+// });
 
-router.post('/register', (req, res) => {
-  const { username, password } = req.body;
+// router.post('/login', (req, res) => {
+//   const { username, password } = req.body;
 
-  // Simulate registration by adding the user to the 'users' array
-  users.push({ username, password });
-  res.status(201).json({ message: 'User registered' });
-});
+//   // Simulate login by checking if the user exists in the 'users' array
+//   const user = users.find((u) => u.username === username && u.password === password);
 
-router.post('/login', (req, res) => {
-  const { username, password } = req.body;
+//   if (user) {
+//     res.status(200).json({ message: 'Login successful', user });
+//   } else {
+//     res.status(401).json({ message: 'Login failed' });
+//   }
+// });
 
-  // Simulate login by checking if the user exists in the 'users' array
-  const user = users.find((u) => u.username === username && u.password === password);
-
-  if (user) {
-    res.status(200).json({ message: 'Login successful', user });
-  } else {
-    res.status(401).json({ message: 'Login failed' });
-  }
-});
-
-module.exports = router;
+export default authRoutes

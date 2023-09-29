@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./RecipeDetail.css";
 import { Link } from "react-router-dom";
-import AppHeader from "../Header/header";
+
 import { Navbar, Container } from "react-bootstrap";
+import { Button } from "bootstrap";
 
 
 const RecipeDetail = () => {
@@ -36,16 +37,14 @@ const RecipeDetail = () => {
       ingredients.push({ ingredient, measure });
     }
   }
-  
-
 
   return (
     <div className="recipe-detail-container ">
       <div className="d-flex justify-content-center">
         <div className="recipe-card">
+        <h1 className="recipe-card-title display-4">{strMeal}</h1>
           <img src={strMealThumb} alt={strMeal} className="recipe-card-img-top" />
           <div className="recipe-card-body">
-            <h1 className="recipe-card-title display-4">{strMeal}</h1>
             <h3 className="recipe-card-subtitle mb-3">Category: {strCategory}</h3>
             <h3 className="recipe-card-subtitle mb-3">Ingredients:</h3>
             <ul className="recipe-card-list list-group mb-4">
