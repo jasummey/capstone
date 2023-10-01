@@ -1,0 +1,19 @@
+.signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 20%;
+    margin:auto;
+    height: 700px;
+}
+
+input {
+    margin: 4px 4px;
+}
+
+button {
+    
+    width: 100px;
+   
+    background-color: blanchedalmond;
+}
