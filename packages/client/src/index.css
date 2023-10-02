@@ -28,6 +28,8 @@ body {
  justify-content:center;
   max-width: 100%;
  flex-direction: column-reverse;
+ margin: 20px;
+ padding: 30px;
 
 }
 

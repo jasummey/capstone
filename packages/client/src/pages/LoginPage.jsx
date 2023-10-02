@@ -15,12 +15,11 @@ const Login = () => {
   const { signin } = useProvideAuth();
   const [formData, setFormData] = useState(initialState);
   const navigate = useNavigate();
-
   const handleSubmit = (e) => {
     e.preventDefault();
     
     signin (formData.username, formData.password)
-   .then(() => navigate ("/dashboard"))
+   .then(() => navigate ("/user"))
    .catch ((err) => console.log (err))
 
   }
@@ -39,6 +38,7 @@ const Login = () => {
         onChange={(e) => setFormData({ ...formData,password: e.target.value })}
       />
       <button onClick={handleSubmit}>Login</button>
+     
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 import api from '../utils/api.config';
 import { useNavigate } from 'react-router-dom';
 
-function Dashboard() {
+function UserProfile() {
 const {auth} = useProvideAuth();
   useEffect (()=> {
     api.get("/protected")
@@ -18,10 +18,11 @@ const {auth} = useProvideAuth();
   if (auth.isAuthenticated === false) {
   return <Navigate to = "/signin" />;
   }
+ console.log(auth.user)
  const navigate = useNavigate();
   return (
     <div>
-      <h2 style={{display: "flex", justifyContent: 'center'}}>Username: username </h2> 
+      <h2 style={{display: "flex", justifyContent: 'center'}}>{`${auth.user}'s `}Profile </h2> 
 
       <div style={{display:"flex",justifyContent:"center", alignItems:"center", margin:"auto"}}>
         
@@ -36,4 +37,4 @@ const {auth} = useProvideAuth();
   )
 }
 
-export default Dashboard
+export default UserProfile
