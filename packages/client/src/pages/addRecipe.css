@@ -24,7 +24,7 @@
   .new-recipe input[type="number"],
   .new-recipe select,
   .new-recipe textarea {
-    width: 100%;
+    width: 90%;
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
@@ -36,7 +36,7 @@
   .new-recipe input[type="submit"] {
     background-color: #4caf50;
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px 10px;
     font-size: 16px;
     border: none;
     border-radius: 4px;
@@ -58,10 +58,9 @@
   .new-recipe form {
     display: flex;
     flex-direction: column; /* Make sure it's set to 'column' */
-    max-width: 600px;
+    width:90%;
     margin: auto;
     padding: 20px;
-   
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #fff;
@@ -70,8 +69,8 @@
   .new-recipe input,
   .new-recipe textarea,
   .new-recipe select {
-    display: block; /* Or inline-block if you want them inline */
-    width: 200%;
+    display: block; 
+    width: 90%;
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;

@@ -5,27 +5,23 @@ import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "./Navigation.css"
-// import Register from '../Register/register'
 import RegisterPage from "../../pages/RegisterPage"
 import { useProvideAuth } from '../../contexts/AuthContext';
 
 
 
 
-function Navigation() {
+function Navigation({username}) {
 const {auth,signout} = useProvideAuth ();
 
   
   return (
     <Nav className="navigation">
       <Nav.Link as={Link}to="/">Home</Nav.Link>
-      <NavDropdown title="Search" id="basic-nav-dropdown">
-        <NavDropdown.Item as={Link} to="/searchbyingredient">By Ingredient</NavDropdown.Item>
-        <NavDropdown.Item as= {Link} to="/searchbymeal">By Meal Type</NavDropdown.Item>
-        <NavDropdown.Item as={Link} to="/searchbycalories">By Calories</NavDropdown.Item>
-        <NavDropdown.Divider />
-      </NavDropdown> 
-      <Nav.Link as={Link} to ="/addrecipe">New Recipe</Nav.Link>
+      <Nav.Item>
+            <Nav.Link as={Link} to ="/dashboard">{`Hello, ${username}`}</Nav.Link>
+          </Nav.Item>
+      {/* <Nav.Link as={Link} to ="/addrecipe">New Recipe</Nav.Link> */}
       <NavDropdown id="new-account" title = {
       <div className ="pull-left"> <img className= "person-image" src="person.png" width="30" height="30"alt="person"/></div>}>
       {auth.isAuthenticated ? 

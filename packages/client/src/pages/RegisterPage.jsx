@@ -20,7 +20,6 @@ const Register = () => {
     // Send a registration request to the server
     // Upon successful registration, call 'login(userData)' to set the user data in the context
   };
-
   return (
     <div className ="signup">
        <h2>Sign up</h2>

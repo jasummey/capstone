@@ -5,6 +5,7 @@
 
 }
 
+.dropdown-toggle::after {
+    margin-left: 0.60rem;
 
-
-
+}

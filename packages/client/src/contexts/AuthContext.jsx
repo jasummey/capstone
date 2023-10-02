@@ -34,7 +34,6 @@ export function useAuth () {
           throw error;
         }
       }
-
       const signout = () => {
         setAuth({
             isAuthenticated:false,
@@ -67,7 +66,7 @@ export function useAuth () {
 
 const AuthProvider =({children}) => {
     const {auth, setAuth,signup,signin,signout} = useAuth();
- 
+    console.log({children})
     return <authContext.Provider value={{auth, signup, signin, signout}}>
         {children}
     </authContext.Provider>

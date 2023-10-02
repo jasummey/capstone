@@ -6,7 +6,7 @@ import Navigation from '../Navigation/Navigation';
 import { Link } from 'react-router-dom';
 import "./header.css"
 
- function AppHeader ()
+ function AppHeader ({username})
 {
     return ( 
         <Navbar expand="lg" className="bg-body-tertiary">
