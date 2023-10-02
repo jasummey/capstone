@@ -27,8 +27,9 @@ export function useAuth () {
           localStorage.setItem ("userData", JSON.stringify (response.data));
           setAuth ({
             isAuthenticated: true,
-            user: response.data.user
+            user: response.data.uname
           });
+          console.log(response.data.uname)
         } 
         catch (error) {
           throw error;

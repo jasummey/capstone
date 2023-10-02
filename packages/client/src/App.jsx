@@ -5,16 +5,22 @@ import RecipeDetail from './components/RecipeDetails/RecipeDetail';
 import { LoginPage, RegisterPage, HomePage} from './pages';
 import { Routes,Route } from 'react-router-dom';
 import RecipeForm from './pages/addRecipe';
-import Dashboard from './pages/Dashboard';
+import UserProfile from './pages/UserProfile';
 
 function App() {
+
+const user = {
+  username: "",
+  password: "",
+ 
+}
   return (
   <>
 <Header />
 
 <Routes>
   <Route exact path="/" element = {<HomePage />} />
-  <Route path="/dashboard" element = {<Dashboard />}/>
+  <Route path="/user" element = {<UserProfile />}/>
   <Route path="/addrecipe" element ={< RecipeForm/>}/>
   <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
   <Route path="/signup" element= {<RegisterPage />} />
