@@ -1,24 +1,58 @@
 import React, { useState } from "react";
-import "../pages/addRecipe.css"
+import { useNavigate } from "react-router-dom";
+import { useProvideAuth } from "../contexts/AuthContext"; // Import your authentication context
+import "../pages/addRecipe.css";
 
 const RecipeForm = () => {
+  const { auth } = useProvideAuth(); // Get authentication information from the context
   const [recipe, setRecipe] = useState({
     recipeName: "",
     ingredients: "",
     preparation: "",
     cookingTime: "",
     difficulty: "easy",
+    author: auth.user, // Use the username from the authentication context
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRecipe({ ...recipe, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Recipe submitted:", recipe);
-    // You can add code here to send the recipe data to a backend or perform other actions.
+
+    try {
+      const { recipeName, ingredients, preparation, cookingTime, difficulty, author } = recipe;
+      const newRecipe = {
+        recipeName,
+        ingredients,
+        preparation,
+        cookingTime,
+        difficulty,
+        author, // Include the author's username
+      };
+
+      const response = await fetch("http://localhost:3001/api/recipes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newRecipe),
+      });
+
+      if (response.status === 201) {
+        console.log("Recipe added to the database");
+        navigate("/user");
+      } else {
+        const data = await response.json();
+        console.error("Failed to add the recipe to the database:", data.error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
