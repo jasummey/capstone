@@ -1,9 +1,4 @@
-import mongoose from "mongoose";
-import { Schema,model } from "mongoose";
-// const { ObjectId } = mongoose.Schema.Types;
-
-const emailformat =
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+import { Schema, model } from "mongoose";
 
 const userSchema = new Schema({
   username: {
@@ -15,18 +10,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  emailAddress: [
-    {
-      type: String,
-      validate: {
-        validator: function (v) {
-          return emailformat.test(v);
-        },
-        message: (props) => `${props.value} is not a valid email address!`,
-      },
-      required: [true, "User email address required"],
-    },
-  ],
 });
 
 const User = model("User", userSchema);

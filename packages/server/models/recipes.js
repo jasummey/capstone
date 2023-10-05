@@ -1,22 +1,35 @@
 import mongoose from "mongoose";
 
-const { ObjectId } = mongoose.Schema.Types;
-
 const recipeSchema = new mongoose.Schema({
-  title: {
+  recipeName: {
     type: String,
     required: true,
+    label: "Recipe Name",
   },
-
-  description: String,
-  ingredients: [{ name: String, quantity: String }],
-  instructions: [String],
-  imageURL: String,
-  cookTime: Number,
-  mealType: String,
+  ingredients: {
+    type: String,
+    required: true,
+    label: "Ingredients",
+  },
+  preparation: {
+    type: String,
+    required: true,
+    label: "Preparation Steps",
+  },
+  cookingTime: {
+    type: Number,
+    required: true,
+    label: "Cooking Time (minutes)",
+  },
+  difficulty: {
+    type: String,
+    required: true,
+    label: "Difficulty",
+    enum: ["easy", "medium", "hard"],
+  },
   author: {
-    type: ObjectId,
-    ref: "User",
+    type: String,
+    required: true,
   },
 });
 
