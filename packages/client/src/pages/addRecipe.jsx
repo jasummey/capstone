@@ -39,17 +39,14 @@ const RecipeForm = () => {
   };
 
 
-
-
-
-
   const handleSubmit = async(e) => {
     e.preventDefault();
-
-
     try {
+    
       const { recipeName, imgUrl, ingredients, preparation, cookingTime, difficulty, author } = recipe;
-      const newRecipe = {
+        console.log({imgUrl})
+        
+        const newRecipe = {
         recipeName,
         imgUrl,
         ingredients,
@@ -57,7 +54,8 @@ const RecipeForm = () => {
         cookingTime,
         difficulty,
         author, // Include the author's username
-      };
+       };
+       console.log (newRecipe)
 
       const response = await fetch("http://localhost:3001/api/recipes", {
         method: "POST",

@@ -1,15 +1,15 @@
-import Recipe from "../models/recipes";
-export async function createRecipe (req,res,next) {
-    try {
-    const {recipeName, imgUrl, ingredients, preparation, cookingTime, diffucilty, author} = req.body;
-   const newRecipe = await Recipe.create({recipeName, imgUrl, ingredients, preparation, cookingTime, diffucilty, author});
-   res.json(newRecipe);
+// import Recipe from "../models/recipes";
+// export async function createRecipe (req,res,next) {
+//     try {
+//     const {recipeName, imgUrl, ingredients, preparation, cookingTime, diffucilty, author} = req.body;
+//    const newRecipe = await Recipe.create({recipeName, imgUrl, ingredients, preparation, cookingTime, diffucilty, author});
+//    res.json(newRecipe);
    
-} catch (error) {
+// } catch (error) {
         
         
-    }
-}
+//     }
+// }
 
 // import Recipe from '../models/Recipe'; // Import your Recipe model
 

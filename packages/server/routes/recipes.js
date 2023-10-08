@@ -9,6 +9,7 @@ router.get("")
 router.post("/", async (req, res) => {
   const {
     recipeName,
+    imgUrl,
     ingredients,
     preparation,
     cookingTime,
@@ -19,6 +20,7 @@ router.post("/", async (req, res) => {
   try {
     const newRecipe = new Recipe({
       recipeName,
+      imgUrl,
       ingredients,
       preparation,
       cookingTime,
