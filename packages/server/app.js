@@ -3,9 +3,12 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import { API_URL, PORT } from "./config/app.js";
+import path from "path";
+
 
 import router from "./routes/index.js";
 import { DB_URL } from "./config/db.js";
+import fileUpload from "express-fileupload";
 
 mongoose
   .connect(DB_URL, {
@@ -24,6 +27,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(API_URL, router);
 

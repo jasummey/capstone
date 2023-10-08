@@ -24,7 +24,6 @@ const user = {
   <Route path="/addrecipe" element ={< RecipeForm/>}/>
   <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
   <Route path="/signup" element= {<RegisterPage />} />
-  
   <Route path="/signin" element= {<LoginPage />} /> 
 </Routes>
 </>)

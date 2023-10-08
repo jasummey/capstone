@@ -9,7 +9,7 @@ const SearchBar= ({value,isLoading,handleSubmit,onChange}) =>
     value = {value}
     disabled ={isLoading}
     onChange={onChange}
-    placeholder="Search By Name"
+    placeholder="Search..."
     className="form-control" />
     <input type="submit"
     disabled= {isLoading || !value}

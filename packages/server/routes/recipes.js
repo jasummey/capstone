@@ -1,11 +1,15 @@
 import { Router } from "express";
-const router = Router();
 import Recipe from "../models/recipes.js";
+
+const router = Router();
+
+router.get("")
 
 // Create a new recipe
 router.post("/", async (req, res) => {
   const {
     recipeName,
+    imgUrl,
     ingredients,
     preparation,
     cookingTime,
@@ -16,6 +20,7 @@ router.post("/", async (req, res) => {
   try {
     const newRecipe = new Recipe({
       recipeName,
+      imgUrl,
       ingredients,
       preparation,
       cookingTime,
