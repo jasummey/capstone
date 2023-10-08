@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProvideAuth } from "../contexts/AuthContext"; // Import your authentication context
 import "../pages/addRecipe.css";
+import useFileUploader from "../hooks/useFileUploader";
 
 const RecipeForm = () => {
-  const { auth } = useProvideAuth(); // Get authentication information from the context
+   const[file,setFile] = useState();
+   const [uploadedFilePath,setUploadedFilePath] = useState();
+  const { auth } = useProvideAuth();
+  const { uploadFile } = useFileUploader(); // Get authentication information from the context
   const [recipe, setRecipe] = useState({
     recipeName: "",
+    imgUrl: "",
     ingredients: "",
     preparation: "",
     cookingTime: "",
@@ -21,13 +26,32 @@ const RecipeForm = () => {
     setRecipe({ ...recipe, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleFileUpload = async(e) =>{
+    e.preventDefault();
+    const response = await uploadFile("/files/images", file, "file");
+    setUploadedFilePath(response.data.path);
+    setRecipe({...recipe,
+    imgUrl: response.data.path});
+  
+  }
+  const handleFileSelection =(e) =>{
+  setFile(e.target.files[0]);
+  };
+
+
+
+
+
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
+
     try {
-      const { recipeName, ingredients, preparation, cookingTime, difficulty, author } = recipe;
+      const { recipeName, imgUrl, ingredients, preparation, cookingTime, difficulty, author } = recipe;
       const newRecipe = {
         recipeName,
+        imgUrl,
         ingredients,
         preparation,
         cookingTime,
@@ -69,7 +93,21 @@ const RecipeForm = () => {
           required
         />
         <br />
-
+       {uploadedFilePath ? (<img className = "upload-preview" src={`http://localhost:3001${uploadedFilePath}`} alt = "Recipe Preview" /> ) :
+(
+  <div> 
+        <label htmlFor="file"> Add Image </label>
+        <input
+          type="file"
+          id="file"
+          name="file"
+          filename={file ? file.name: ""}
+          onChange={handleFileSelection}
+          required
+        />
+        <button type="button" onClick = {handleFileUpload} >Upload</button> 
+        </div>
+)}
         <label htmlFor="ingredients">Ingredients:</label>
         <textarea
           id="ingredients"
@@ -80,7 +118,7 @@ const RecipeForm = () => {
           required
         ></textarea>
         <br />
-
+  
         <label htmlFor="preparation">Preparation Steps:</label>
         <textarea
           id="preparation"

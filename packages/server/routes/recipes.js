@@ -1,6 +1,9 @@
 import { Router } from "express";
-const router = Router();
 import Recipe from "../models/recipes.js";
+
+const router = Router();
+
+router.get("")
 
 // Create a new recipe
 router.post("/", async (req, res) => {
