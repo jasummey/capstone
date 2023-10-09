@@ -14,6 +14,6 @@ image.mv(uploadPath, (err) =>{
         return res.sendStatus(500)
     }
 
-    res.json({ path: `/images/${generatedImageName}`})
+    res.json({ path: `/public/images/${generatedImageName}`})
 })
 }
