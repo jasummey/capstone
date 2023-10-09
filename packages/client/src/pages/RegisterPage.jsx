@@ -14,7 +14,7 @@ const Register = () => {
     signup(formData.username, formData.password, formData.confirmPassword)
     .then(
       (response) => signin(formData.username, formData.password))
-    .then(()=> navigate ("/dashboard"))
+    .then(()=> navigate ("/user"))
     
     .catch ((err) => console.log(err))
     // Send a registration request to the server

@@ -6,6 +6,7 @@ import { LoginPage, RegisterPage, HomePage} from './pages';
 import { Routes,Route } from 'react-router-dom';
 import RecipeForm from './pages/addRecipe';
 import UserProfile from './pages/UserProfile';
+import { useProvideAuth } from './contexts/AuthContext';
 
 function App() {
 
