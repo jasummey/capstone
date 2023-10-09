@@ -33,8 +33,8 @@ app.use(API_URL, router);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
-  // app.use("/public/images", express.static(path.join(__dirname, "public/images")));
-  app.use(express.static(path.join(__dirname, "public")));
+  app.use("/public/images", express.static(path.join(__dirname, "public/images")));
+  // app.use(express.static(path.join(__dirname, "public")));
   app.all("*", (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "../client/dist/index.html"));
   });
