@@ -91,7 +91,7 @@ const RecipeForm = () => {
           required
         />
         <br />
-       {uploadedFilePath ? (<img className = "upload-preview" src={`http://localhost:3001/public${uploadedFilePath}`} alt = "Recipe Preview" /> ) :
+       {uploadedFilePath ? (<img className = "upload-preview" src={`http://localhost:3001${uploadedFilePath}`} alt = "Recipe Preview" /> ) :
 (
   <div> 
         <label htmlFor="file"> Add Image </label>
