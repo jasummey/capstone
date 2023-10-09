@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useProvideAuth } from "../contexts/AuthContext"; // Import your authentication context
 import "../pages/addRecipe.css";
 import useFileUploader from "../hooks/useFileUploader";
+import api from "../utils/api.config";
 
 const RecipeForm = () => {
    const[file,setFile] = useState();
@@ -57,11 +58,11 @@ const RecipeForm = () => {
        };
        console.log (newRecipe)
 
-      const response = await fetch("http://localhost:3001/api/recipes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await api.post("/recipes", {
+        // method: "POST",
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
         body: JSON.stringify(newRecipe),
       });
 
