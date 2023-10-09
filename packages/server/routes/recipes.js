@@ -8,14 +8,25 @@ router.get("")
 // Create a new recipe
 router.post("/", async (req, res) => {
   const {
-    recipeName,
-    imgUrl,
-    ingredients,
-    preparation,
-    cookingTime,
-    difficulty,
-    author,
+    // recipeName,
+    // imgUrl,
+    // ingredients,
+    // preparation,
+    // cookingTime,
+    // difficulty,
+    // author,
+    newRecipe
   } = req.body;
+const {
+  recipeName,
+  imgUrl,
+  ingredients,
+  preparation,
+  cookingTime,
+  difficulty,
+  author,
+} = newRecipe
+
 
   try {
     const newRecipe = new Recipe({

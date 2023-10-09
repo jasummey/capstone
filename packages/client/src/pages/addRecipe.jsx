@@ -63,7 +63,8 @@ const RecipeForm = () => {
         // headers: {
         //   "Content-Type": "application/json",
         // },
-        body: JSON.stringify(newRecipe),
+        // body: JSON.stringify(newRecipe),
+        newRecipe
       });
 
       if (response.status === 201) {
