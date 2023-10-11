@@ -5,40 +5,82 @@ import SearchBar from '../components/SearchBar/SearchBar';
 import RecipeCard from '../components/RecipeCard/RecipeCard';
 import Slides from '../components/Slides/Slides';
 import axios from 'axios';
+import LocalRecipeCard from '../components/LocalRecipeCard/LocalRecipeCard';
 
 const apiUrl = 'https://www.themealdb.com/api/json/v1/1/';
+
 
 export function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState('');
   const [searchType, setSearchType] = useState('name');
-  const [recipes, setRecipes] = useState([]);
+  const [externalRecipes, setExternalRecipes] = useState([]);
+  const [localRecipes, setLocalRecipes] = useState([]);
+  console.log(query);
+
+  const fetchExternalRecipes = async () => {
+    try {
+      const externalResponse = await axios.get(apiUrl + 'search.php?s=');
+      const externalRecipes = externalResponse.data.meals || [];
+      setExternalRecipes(externalRecipes);
+    } catch (error) {
+      console.error('Error fetching external recipes:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchExternalRecipes()
+      .then(() => setIsLoading(false))
+      .catch((error) => {
+        console.error('Error fetching external recipes:', error);
+        setIsLoading(false);
+      });
+  }, []);
 
   const searchRecipes = async () => {
     setIsLoading(true);
-    const searchUrl = searchType === 'name' ? 'search.php?s=' : 'filter.php?i=';
     try {
-      const response = await axios.get(apiUrl + searchUrl + query);
-      setRecipes(response.data.meals || []);
+      if (searchType === 'name') {
+        const externalResponse = await axios.get(apiUrl + 'search.php?s=' + query);
+        const externalRecipes = externalResponse.data.meals || [];
+        setExternalRecipes(externalRecipes);
+
+        const localResponse = await axios.get("/recipes"); 
+        const localRecipes = localResponse.data || [];
+        const filteredLocalRecipes = localRecipes.filter((recipe) =>
+          recipe.recipeName.toLowerCase().includes(query.toLowerCase())
+        );
+        setLocalRecipes(filteredLocalRecipes);
+      } else if (searchType === 'ingredient') {
+        const externalResponse = await axios.get(apiUrl + 'filter.php?i=' + query);
+        const externalRecipes = externalResponse.data.meals || [];
+        setExternalRecipes(externalRecipes);
+
+        const localResponse = await axios.get("/recipes");
+        const localRecipes = localResponse.data || [];
+        const filteredLocalRecipes = localRecipes.filter((recipe) => {
+          const ingredients = recipe.ingredients ? recipe.ingredients.split(', ') : [];
+          return ingredients.some((ingredient) =>
+            ingredient.toLowerCase().includes(query.toLowerCase())
+          );
+        });
+        setLocalRecipes(filteredLocalRecipes);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    searchRecipes();
-  }, [searchType]);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     searchRecipes();
+    setQuery('');
   };
 
   return (
     <div className="container">
-      <Slides recipes={recipes} />
+      <Slides recipes={externalRecipes} />
       <SearchBar
         handleSubmit={handleSubmit}
         value={query}
@@ -66,17 +108,19 @@ export function HomePage() {
         </label>
       </div>
       <div className="recipes">
-        {recipes.length > 0 ? (
-          recipes.map((recipe) => (
-            <RecipeCard key={recipe.idMeal} recipe={recipe} />
-          ))
-        ) : (
-          <p>No Recipes!</p>
+        {(localRecipes.length > 0 || externalRecipes.length > 0) && (
+          <>
+            {localRecipes.map((recipe) => (
+              <LocalRecipeCard key={recipe._id} recipe={recipe} />
+            ))}
+           {externalRecipes.map((recipe) => (
+  <RecipeCard key={recipe.idMeal || recipe._id} recipe={recipe} />
+))}
+          </>
         )}
       </div>
     </div>
   );
 }
-
 
 export default HomePage;

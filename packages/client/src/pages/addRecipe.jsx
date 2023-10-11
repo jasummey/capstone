@@ -58,7 +58,7 @@ const RecipeForm = () => {
        };
        console.log (newRecipe)
 
-      const response = await api.post ("/recipes", {
+      const response = await api.post("/recipes", {
         // method: "POST",
         // headers: {
         //   "Content-Type": "application/json",
