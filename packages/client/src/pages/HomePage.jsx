@@ -8,7 +8,7 @@ import axios from 'axios';
 import LocalRecipeCard from '../components/LocalRecipeCard/LocalRecipeCard';
 
 const apiUrl = 'https://www.themealdb.com/api/json/v1/1/';
-const localApiUrl = 'http://localhost:3001/api/recipes';
+
 
 export function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,10 +30,10 @@ export function HomePage() {
 
   useEffect(() => {
     fetchExternalRecipes()
-      .then(() => setIsLoading(false)) 
+      .then(() => setIsLoading(false))
       .catch((error) => {
         console.error('Error fetching external recipes:', error);
-        setIsLoading(false); 
+        setIsLoading(false);
       });
   }, []);
 
@@ -44,9 +44,8 @@ export function HomePage() {
         const externalResponse = await axios.get(apiUrl + 'search.php?s=' + query);
         const externalRecipes = externalResponse.data.meals || [];
         setExternalRecipes(externalRecipes);
-        
-        
-        const localResponse = await axios.get(localApiUrl);
+
+        const localResponse = await axios.get("/recipes"); 
         const localRecipes = localResponse.data || [];
         const filteredLocalRecipes = localRecipes.filter((recipe) =>
           recipe.recipeName.toLowerCase().includes(query.toLowerCase())
@@ -56,8 +55,8 @@ export function HomePage() {
         const externalResponse = await axios.get(apiUrl + 'filter.php?i=' + query);
         const externalRecipes = externalResponse.data.meals || [];
         setExternalRecipes(externalRecipes);
-        
-        const localResponse = await axios.get(localApiUrl);
+
+        const localResponse = await axios.get("/recipes");
         const localRecipes = localResponse.data || [];
         const filteredLocalRecipes = localRecipes.filter((recipe) => {
           const ingredients = recipe.ingredients ? recipe.ingredients.split(', ') : [];
@@ -76,7 +75,7 @@ export function HomePage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     searchRecipes();
-    setQuery('')
+    setQuery('');
   };
 
   return (
@@ -109,16 +108,14 @@ export function HomePage() {
         </label>
       </div>
       <div className="recipes">
-        
-
         {(localRecipes.length > 0 || externalRecipes.length > 0) && (
           <>
             {localRecipes.map((recipe) => (
               <LocalRecipeCard key={recipe._id} recipe={recipe} />
             ))}
-            {externalRecipes.map((recipe) => (
-              <RecipeCard key={recipe.idMeal || recipe._id} recipe={recipe} />
-            ))}
+           {externalRecipes.map((recipe) => (
+  <RecipeCard key={recipe.idMeal || recipe._id} recipe={recipe} />
+))}
           </>
         )}
       </div>
