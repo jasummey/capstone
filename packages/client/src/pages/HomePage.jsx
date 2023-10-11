@@ -6,6 +6,7 @@ import RecipeCard from '../components/RecipeCard/RecipeCard';
 import Slides from '../components/Slides/Slides';
 import axios from 'axios';
 import LocalRecipeCard from '../components/LocalRecipeCard/LocalRecipeCard';
+import api from "../utils/api.config"
 
 const apiUrl = 'https://www.themealdb.com/api/json/v1/1/';
 
@@ -45,7 +46,7 @@ export function HomePage() {
         const externalRecipes = externalResponse.data.meals || [];
         setExternalRecipes(externalRecipes);
 
-        const localResponse = await axios.get("/recipes"); 
+        const localResponse = await api.get("/recipes"); 
         const localRecipes = localResponse.data || [];
         const filteredLocalRecipes = localRecipes.filter((recipe) =>
           recipe.recipeName.toLowerCase().includes(query.toLowerCase())
@@ -56,7 +57,7 @@ export function HomePage() {
         const externalRecipes = externalResponse.data.meals || [];
         setExternalRecipes(externalRecipes);
 
-        const localResponse = await axios.get("/recipes");
+        const localResponse = await api.get("/recipes");
         const localRecipes = localResponse.data || [];
         const filteredLocalRecipes = localRecipes.filter((recipe) => {
           const ingredients = recipe.ingredients ? recipe.ingredients.split(', ') : [];
