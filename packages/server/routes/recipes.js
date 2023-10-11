@@ -3,7 +3,7 @@ import Recipe from "../models/recipes.js";
 
 const router = Router();
 
-router.get("")
+router.get("");
 
 // Create a new recipe
 router.post("/", async (req, res) => {
@@ -15,18 +15,17 @@ router.post("/", async (req, res) => {
     // cookingTime,
     // difficulty,
     // author,
-    newRecipe
+    newRecipe,
   } = req.body;
-const {
-  recipeName,
-  imgUrl,
-  ingredients,
-  preparation,
-  cookingTime,
-  difficulty,
-  author,
-} = newRecipe
-
+  const {
+    recipeName,
+    imgUrl,
+    ingredients,
+    preparation,
+    cookingTime,
+    difficulty,
+    author,
+  } = newRecipe;
 
   try {
     const newRecipe = new Recipe({
@@ -60,10 +59,24 @@ router.get("/", async (req, res) => {
 
 // Fetch recipes by username
 router.get("/user/:username", async (req, res) => {
-  const username = req.params.username; // Get the username parameter
+  const username = req.params.username;
   try {
-    const recipes = await Recipe.find({ author: username }); // Use 'author' field to filter by username
+    const recipes = await Recipe.find({ author: username });
     res.status(200).json(recipes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/api/recipes", async (req, res) => {
+  const searchTerm = req.query.recipeName.toLowerCase();
+
+  try {
+    const recipes = await Recipe.find({
+      recipeName: { $regex: searchTerm, $options: "i" },
+    });
+    res.json(recipes);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
