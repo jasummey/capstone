@@ -16,7 +16,7 @@ const RecipeDetail = () => {
       .then((response) => response.json())
       .then((data) => setRecipe(data.meals[0]));
   }, [recipeId]);
-console.log (response)
+// console.log (response)
   if (!recipe) {
     return <div>Loading...</div>;
   }
