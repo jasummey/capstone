@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useProvideAuth } from "../contexts/AuthContext"; // Import your authentication context
 import "../pages/addRecipe.css";
 import useFileUploader from "../hooks/useFileUploader";
+import api from "../utils/api.config";
 
 const RecipeForm = () => {
    const[file,setFile] = useState();
@@ -57,17 +58,18 @@ const RecipeForm = () => {
        };
        console.log (newRecipe)
 
-      const response = await fetch("http://localhost:3001/api/recipes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newRecipe),
+      const response = await api.post ("/recipes", {
+        // method: "POST",
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+        // body: JSON.stringify(newRecipe),
+        newRecipe
       });
 
       if (response.status === 201) {
         console.log("Recipe added to the database");
-        navigate("/user");
+        navigate(`/user/${auth.user}`);
       } else {
         const data = await response.json();
         console.error("Failed to add the recipe to the database:", data.error);
@@ -91,7 +93,7 @@ const RecipeForm = () => {
           required
         />
         <br />
-       {uploadedFilePath ? (<img className = "upload-preview" src={`http://localhost:3001${uploadedFilePath}`} alt = "Recipe Preview" /> ) :
+       {uploadedFilePath ? (<img className = "upload-preview" src={`${uploadedFilePath}`} alt = "Recipe Preview" /> ) :
 (
   <div> 
         <label htmlFor="file"> Add Image </label>

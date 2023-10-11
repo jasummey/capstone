@@ -24,13 +24,21 @@ mongoose
 
 const app = express();
 
-app.use(cors());
+app.use(cors({credentials:true, origin:["http://18.116.170.169/", "http://localhost:5173"]}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(API_URL, router);
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/dist")));
+  app.use("/public/images", express.static(path.join(__dirname, "public/images")));
+  // app.use(express.static(path.join(__dirname, "public")));
+  app.all("*", (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, "../client/dist/index.html"));
+})
+}
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");

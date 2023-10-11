@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
-  const { signup, signin} = useProvideAuth();
+  const { signup, signin, auth} = useProvideAuth();
   const [formData, setFormData] = useState ({ username: '', password: '', confirmPassword:''});
   const navigate = useNavigate()
   const handleRegister = (e) => {
@@ -14,7 +14,7 @@ const Register = () => {
     signup(formData.username, formData.password, formData.confirmPassword)
     .then(
       (response) => signin(formData.username, formData.password))
-    .then(()=> navigate ("/user"))
+    .then(()=> navigate ("/"))
     
     .catch ((err) => console.log(err))
     // Send a registration request to the server

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useParams } from 'react';
 import { Link } from 'react-router-dom';
 import { useProvideAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
@@ -10,13 +10,13 @@ function UserProfile() {
   const [userRecipes, setUserRecipes] = useState([]); // State to store user's recipes
   const [loading, setLoading] = useState(true); // Loading indicator
   const { auth } = useProvideAuth();
-  const navigate = useNavigate();
+  const navigate = useNavigate();;
   
 
 
   useEffect(() => {
     // Check if auth.user is defined before making the request
-    if (auth.user) {
+    if (auth.isAuthenticated) {
       // Fetch user's recipes from the backend using their username
       api.get(`/recipes/user/${auth.user}`, {
         headers: { Authorization: `Bearer ${auth.token}` },
@@ -70,7 +70,16 @@ function UserProfile() {
       <h2 style={{ display: 'flex', justifyContent: 'center' }}>{`${auth.user}'s `}Profile</h2>
 
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 'auto' }}>
-        <button onClick={handleAddRecipe}>Add recipe</button>
+        <button  id="btn"
+    style={{
+      padding: '10px 20px', // Adjust padding as needed
+      width: '250px',
+      backgroundColor: '#FBD199', // Change the background color
+      color: 'black', // Change the text color
+      border: 'none', // Remove the border
+      borderRadius: '5px', // Add some border radius for rounded corners
+      cursor: 'pointer', // Change the cursor on hover
+    }} onClick={handleAddRecipe}>Add recipe</button>
       </div>
 
       {/* Display the user's recipes or loading indicator */}
@@ -79,13 +88,13 @@ function UserProfile() {
       ) : (
         <div>
           <h3> My Recipes</h3>
-      
           <ul>
             {userRecipes.map((recipe) => (
               <li key={recipe._id}>{recipe.recipeName} <img src={recipe.imgUrl} width ="100" height = "100"/>
               </li>
             ))}
           </ul>
+        
         </div>
       )}
     </div>

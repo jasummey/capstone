@@ -21,7 +21,7 @@ const user = {
 
 <Routes>
   <Route exact path="/" element = {<HomePage />} />
-  <Route path="/user" element = {<UserProfile />}/>
+  <Route path="/user/:username" element={<UserProfile />} />
   <Route path="/addrecipe" element ={< RecipeForm/>}/>
   <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
   <Route path="/signup" element= {<RegisterPage />} />
