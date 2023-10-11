@@ -1,10 +1,13 @@
+
 import React, { useEffect, useState, useParams } from 'react';
 import { Link } from 'react-router-dom';
 import { useProvideAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 import api from '../utils/api.config';
 import { useNavigate } from 'react-router-dom';
-import RecipeCard from '../components/RecipeCard/RecipeCard';
+import UserRecipeCard from '../components/UserRecipeCard/UserRecipeCard';
+
+
 
 function UserProfile() {
   const [userRecipes, setUserRecipes] = useState([]); // State to store user's recipes
@@ -72,29 +75,23 @@ function UserProfile() {
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 'auto' }}>
         <button  id="btn"
     style={{
-      padding: '10px 20px', // Adjust padding as needed
-      width: '250px',
-      backgroundColor: '#FBD199', // Change the background color
-      color: 'black', // Change the text color
-      border: 'none', // Remove the border
-      borderRadius: '5px', // Add some border radius for rounded corners
-      cursor: 'pointer', // Change the cursor on hover
+      padding: '10px 20px', 
+      width: '300px',
+      backgroundColor: '#FBD199', 
+      color: 'black', 
+      border: 'none', 
+      borderRadius: '5px', 
+      cursor: 'pointer',
     }} onClick={handleAddRecipe}>Add recipe</button>
       </div>
-
-      {/* Display the user's recipes or loading indicator */}
       {loading ? (
         <p>Loading recipe...</p>
       ) : (
-        <div>
-          <h3> My Recipes</h3>
-          <ul>
+        <div >
+          <h3 style={{ display: 'flex', justifyContent: 'center' }}> My Recipes</h3>
             {userRecipes.map((recipe) => (
-              <li key={recipe._id}>{recipe.recipeName} <img src={recipe.imgUrl} width ="100" height = "100"/>
-              </li>
+              <UserRecipeCard recipe ={recipe} />
             ))}
-          </ul>
-        
         </div>
       )}
     </div>

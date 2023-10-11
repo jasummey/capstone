@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const RecipeCard = ({ recipe }) => {
-  const { idMeal, strMeal, strCategory, strMealThumb } = recipe;
-
+const RecipeCard = ({recipe}) => {
+  const { idMeal, strMeal, strCategory, strMealThumb} = recipe;
+  
   return (
 
     <div className="card">
