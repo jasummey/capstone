@@ -4,22 +4,20 @@ import React from 'react';
 import {useProvideAuth} from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
 const initialState = {
   username: "",
   password: "",
  
 }
-
 const Login = () => {
-  const { signin } = useProvideAuth();
+  const { signin} = useProvideAuth();
   const [formData, setFormData] = useState(initialState);
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    
     signin (formData.username, formData.password)
-   .then(() => navigate ("/user"))
+   .then(() => navigate (`/user/${formData.username}`))
+
    .catch ((err) => console.log (err))
 
   }

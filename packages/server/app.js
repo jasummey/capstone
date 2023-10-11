@@ -29,6 +29,7 @@ app.use(
     origin: ["http://18.116.170.169/", "http://localhost:5173"],
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -37,6 +38,7 @@ app.use(API_URL, router);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
+
   app.use(
     "/public/images",
     express.static(path.join(__dirname, "public/images"))

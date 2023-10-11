@@ -69,7 +69,7 @@ const RecipeForm = () => {
 
       if (response.status === 201) {
         console.log("Recipe added to the database");
-        navigate("/user");
+        navigate(`/user/${auth.user}`);
       } else {
         const data = await response.json();
         console.error("Failed to add the recipe to the database:", data.error);

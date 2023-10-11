@@ -27,16 +27,16 @@ router.post("/", async (req, res) => {
     author,
   } = newRecipe;
 
-  try {
-    const newRecipe = new Recipe({
-      recipeName,
-      imgUrl,
-      ingredients,
-      preparation,
-      cookingTime,
-      difficulty,
-      author, // Save the author's username
-    });
+     try {
+      const newRecipe = new Recipe ({
+        recipeName,
+        imgUrl,
+        ingredients,
+        preparation,
+        cookingTime,
+        difficulty,
+        author,
+      })
 
     const savedRecipe = await newRecipe.save();
     res.status(201).json(savedRecipe);
