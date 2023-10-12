@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useProvideAuth } from "../contexts/AuthContext"; // Import your authentication context
+import { useProvideAuth } from "../contexts/AuthContext";
 import "../pages/addRecipe.css";
 import useFileUploader from "../hooks/useFileUploader";
 import api from "../utils/api.config";
@@ -9,7 +9,7 @@ const RecipeForm = () => {
    const[file,setFile] = useState();
    const [uploadedFilePath,setUploadedFilePath] = useState();
   const { auth } = useProvideAuth();
-  const { uploadFile } = useFileUploader(); // Get authentication information from the context
+  const { uploadFile } = useFileUploader(); 
   const [recipe, setRecipe] = useState({
     recipeName: "",
     imgUrl: "",
@@ -17,7 +17,7 @@ const RecipeForm = () => {
     preparation: "",
     cookingTime: "",
     difficulty: "easy",
-    author: auth.user, // Use the username from the authentication context
+    author: auth.user, 
   });
 
   const navigate = useNavigate();

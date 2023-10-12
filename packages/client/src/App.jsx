@@ -8,6 +8,7 @@ import RecipeForm from './pages/addRecipe';
 import UserProfile from './pages/UserProfile';
 import RecipeDetailLocal from './components/RecipeDetailLocal/RecipeDetailLocal'
 import UserRecipeDetail from './components/UserRecipeDetail/UserRecipeDetail';
+import RecipeEdit from './components/RecipeEdit/RecipeEdit';
 
 
 function App() {
@@ -30,6 +31,7 @@ const user = {
   <Route path="/signin" element= {<LoginPage />} /> 
   <Route path="/local-recipe/:recipeName" element={<RecipeDetailLocal />} />
   <Route path="/:recipeName" element= {<UserRecipeDetail />} />
+  <Route path="/editrecipe/:recipeName" element={<RecipeEdit />} />
 
 </Routes>
 </>)

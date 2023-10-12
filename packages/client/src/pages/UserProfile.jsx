@@ -1,26 +1,29 @@
 
 import React, { useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
 import { useParams} from 'react-router-dom';
 import { useProvideAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 import api from '../utils/api.config';
 import { useNavigate } from 'react-router-dom';
 import UserRecipeCard from '../components/UserRecipeCard/UserRecipeCard';
+import LocalRecipeCard from '../components/LocalRecipeCard/LocalRecipeCard';
 
 
 
 function UserProfile() {
-  const [userRecipes, setUserRecipes] = useState([]); // State to store user's recipes
-  const [loading, setLoading] = useState(true); // Loading indicator
+  const [userRecipes, setUserRecipes] = useState([]); 
+  const [loading, setLoading] = useState(true); 
   const { auth } = useProvideAuth();
-  const navigate = useNavigate();;
+  const navigate = useNavigate();
+  const [editRecipe, setEditRecipe] = useState(null); 
   
 
 
   useEffect(() => {
-    // Check if auth.user is defined before making the request
+    
     if (auth.isAuthenticated) {
-      // Fetch user's recipes from the backend using their username
+    
       api.get(`/recipes/user/${auth.user}`, {
         headers: { Authorization: `Bearer ${auth.token}` },
       })
@@ -33,15 +36,15 @@ function UserProfile() {
                 console.log(response.data)
                 const jsonData = await response.data;
                 console.log(jsonData)
-                setUserRecipes(jsonData); // Set the user's recipes
+                setUserRecipes(jsonData); 
               } catch (error) {
                 console.error("Error parsing JSON:", error);
-                // Handle the error appropriately
+                
               }
             } else {
               console.error("Response is not JSON.");
-              // Handle the error appropriately for non-JSON responses
-              setUserRecipes([]); // Set userRecipes to an empty array in case of non-JSON response
+             
+              setUserRecipes([]); 
               
             }
           } else {
@@ -50,19 +53,68 @@ function UserProfile() {
         })
         .catch((error) => {
           console.error("Error fetching recipes:", error);
-          // Handle the error appropriately, e.g., set an error state or display a message
+          
         })
         .finally(() => {
-          setLoading(false); // Data loading is complete
+          setLoading(false); 
         });
     }
   }, [auth.token, auth.user]); 
   console.log(userRecipes)
 
   const handleAddRecipe = () => {
-    // Redirect the user to the recipe add page
+    
     navigate('/addrecipe');
   };
+
+  
+const handleDeleteRecipe = (recipeName) => {
+  api.delete(`/recipes/delete/${recipeName}`, {
+    headers: { Authorization: `Bearer ${auth.token}` },
+  })
+    .then((response) => {
+      if (response.status === 204) {
+        
+        setUserRecipes((prevRecipes) =>
+          prevRecipes.filter((recipe) => recipe.recipeName !== recipeName)
+        );
+      } else {
+        
+        console.error("Failed to delete recipe:", response.statusText);
+      }
+    })
+    .catch((error) => {
+      
+      console.error("Error deleting recipe:", error);
+    });
+};
+
+const handleEditRecipe = (recipe) => {
+  setEditRecipe(recipe);
+};
+const handleSaveRecipe = (editedRecipe) => {
+  
+  api.put(`/recipes/edit/${editedRecipe.recipeName}`, editedRecipe, {
+    headers: { Authorization: `Bearer ${auth.token}` },
+  })
+    .then((response) => {
+      if (response.status === 200) {
+  
+        setUserRecipes((prevRecipes) =>
+          prevRecipes.map((recipe) =>
+            recipe.recipeName === editedRecipe.recipeName ? editedRecipe : recipe
+          )
+        );
+        setEditRecipe(null); 
+      } else {
+        console.error("Failed to edit recipe:", response.statusText);
+      }
+    })
+    .catch((error) => {
+      console.error("Error editing recipe:", error);
+    });
+};
+
 
   if (auth.isAuthenticated === false) {
     return <Navigate to="/signin" />;
@@ -75,28 +127,36 @@ function UserProfile() {
 
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 'auto' }}>
         <button  id="btn"
-    style={{
-      padding: '10px 20px', 
-      width: '300px',
-      backgroundColor: '#FBD199', 
-      color: 'black', 
-      border: 'none', 
-      borderRadius: '5px', 
-      cursor: 'pointer',
-    }} onClick={handleAddRecipe}>Add recipe</button>
-      </div >
-      <h3 style={{ display: 'flex', justifyContent: 'center' }}> My Recipes</h3>
-      {loading ? (
-        <p>Loading recipe...</p>
-      ) : (
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: '30px'}}>
-            {userRecipes.map((recipe) => (
-              <UserRecipeCard recipe ={recipe} />
-            ))}
-        </div>
-      )}
+  style={{
+    padding: '10px 20px', 
+    width: '300px',
+    backgroundColor: '#FBD199', 
+    color: 'black', 
+    border: 'none', 
+    borderRadius: '5px', 
+    cursor: 'pointer',
+  }} onClick={handleAddRecipe}>Add recipe</button>
     </div>
-  );
+    {loading ? (
+      <p>Loading recipe...</p>
+    ) : (
+      <div >
+        <h3 style={{ display: 'flex', justifyContent: 'center' }}> My Recipes</h3>
+        {userRecipes.map((recipe) => (
+<div key={recipe.recipeName}>
+  <LocalRecipeCard recipe={recipe} />
+  <button onClick={() => handleDeleteRecipe(recipe.recipeName)} className="btn btn-danger btn-sm mr-2">
+  Delete
+</button>
+
+
+  <Link to={`/editrecipe/${recipe.recipeName}`}>Edit Recipe</Link>
+</div>
+))}
+      </div>
+    )}
+  </div>
+);
 }
 
 export default UserProfile;
