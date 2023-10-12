@@ -48,7 +48,7 @@ export function useAuth () {
             setAuthHeaders(userData.token)
           setAuth ({
             isAuthenticated:true,
-            user: userData.user,
+            user: userData.uname,
           });
         } else {
             setAuth ({

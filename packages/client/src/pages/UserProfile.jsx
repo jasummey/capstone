@@ -1,6 +1,6 @@
 
-import React, { useEffect, useState, useParams } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState} from 'react';
+import { useParams} from 'react-router-dom';
 import { useProvideAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 import api from '../utils/api.config';
@@ -70,6 +70,7 @@ function UserProfile() {
 
   return (
     <div>
+      
       <h2 style={{ display: 'flex', justifyContent: 'center' }}>{`${auth.user}'s `}Profile</h2>
 
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 'auto' }}>
@@ -83,12 +84,12 @@ function UserProfile() {
       borderRadius: '5px', 
       cursor: 'pointer',
     }} onClick={handleAddRecipe}>Add recipe</button>
-      </div>
+      </div >
+      <h3 style={{ display: 'flex', justifyContent: 'center' }}> My Recipes</h3>
       {loading ? (
         <p>Loading recipe...</p>
       ) : (
-        <div >
-          <h3 style={{ display: 'flex', justifyContent: 'center' }}> My Recipes</h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: '30px'}}>
             {userRecipes.map((recipe) => (
               <UserRecipeCard recipe ={recipe} />
             ))}

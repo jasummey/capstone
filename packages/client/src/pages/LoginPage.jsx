@@ -3,7 +3,7 @@ import "./loginpage.css"
 import React from 'react';
 import {useProvideAuth} from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 const initialState = {
   username: "",
   password: "",
@@ -21,7 +21,12 @@ const Login = () => {
    .catch ((err) => console.log (err))
 
   }
-
+  // useEffect(() => {
+  //   const storedUsername = localStorage.getItem('username');
+  //   if (storedUsername) {
+  //     setFormData({ ...formData, username: storedUsername });
+  //   }
+  // }, []);
   return (
     <div className='login'>
       <h2> Please Login </h2>

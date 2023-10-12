@@ -6,10 +6,8 @@ import { LoginPage, RegisterPage, HomePage} from './pages';
 import { Routes,Route } from 'react-router-dom';
 import RecipeForm from './pages/addRecipe';
 import UserProfile from './pages/UserProfile';
-
-import { useProvideAuth } from './contexts/AuthContext';
-
 import RecipeDetailLocal from './components/RecipeDetailLocal/RecipeDetailLocal'
+import UserRecipeDetail from './components/UserRecipeDetail/UserRecipeDetail';
 
 
 function App() {
@@ -25,12 +23,13 @@ const user = {
 
 <Routes>
   <Route exact path="/" element = {<HomePage />} />
-  <Route path="/user/:username" element={<UserProfile />} />
+  <Route path="/user/:username" element={<UserProfile />}/>
   <Route path="/addrecipe" element ={< RecipeForm/>}/>
   <Route path="/recipe/:recipeId" element={<RecipeDetail />} />
   <Route path="/signup" element= {<RegisterPage />} />
   <Route path="/signin" element= {<LoginPage />} /> 
   <Route path="/local-recipe/:recipeName" element={<RecipeDetailLocal />} />
+  <Route path="/:recipeName" element= {<UserRecipeDetail />} />
 
 </Routes>
 </>)
