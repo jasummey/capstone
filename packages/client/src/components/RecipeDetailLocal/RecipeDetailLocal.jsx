@@ -17,7 +17,7 @@ const RecipeDetailLocal = () => {
       <div className="d-flex justify-content-center">
         <div className="recipe-card">
           <h1 className="recipe-card-title display-4">{recipeName}</h1>
-          <img src={imgUrl} alt={recipeName} />
+          <img src={imgUrl} alt={recipeName} className="recipe-card-img-top" />
           <div className="recipe-card-body">
             <h3 className="recipe-card-subtitle mb-3">Ingredients:</h3>
             <ul className="recipe-card-list list-group mb-4">
@@ -25,7 +25,7 @@ const RecipeDetailLocal = () => {
                 <li className="recipe-card-list-item list-group-item" key={index}>{ingredient}</li>
               ))}
             </ul>
-            <h3 className="recipe-card-subtitle mb-3">Preparation:</h3>
+            <h3 className="recipe-card-text">Preparation:</h3>
             <p>{preparation}</p>
             <h3 className="recipe-card-subtitle mb-3">Cooking Time:</h3>
             <p>{cookingTime} minutes</p>
