@@ -27,19 +27,20 @@ router.post("/", async (req, res) => {
     author,
   } = newRecipe;
 
-     try {
-      const newRecipe = new Recipe ({
-        recipeName,
-        imgUrl,
-        ingredients,
-        preparation,
-        cookingTime,
-        difficulty,
-        author,
-      })
+  try {
+    const newRecipe = new Recipe({
+      recipeName,
+      imgUrl,
+      ingredients,
+      preparation,
+      cookingTime,
+      difficulty,
+      author,
+    });
 
     const savedRecipe = await newRecipe.save();
-    res.status(201).json(savedRecipe);
+    const responseRecipe = savedRecipe.toJSON();
+    res.status(201).json(responseRecipe);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -77,6 +78,61 @@ router.get("/api/recipes", async (req, res) => {
       recipeName: { $regex: searchTerm, $options: "i" },
     });
     res.json(recipes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/:recipeName", async (req, res) => {
+  const { recipeName } = req.params;
+  try {
+    const recipe = await Recipe.findOne({ recipeName });
+    if (!recipe) {
+      return res.status(404).json({ error: "Recipe not found" });
+    }
+    res.status(200).json(recipe);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// // Edit a recipe by recipeName
+router.put("/edit/:recipeName", async (req, res) => {
+  const { recipeName } = req.params;
+  const updatedRecipeData = req.body;
+
+  try {
+    const updatedRecipe = await Recipe.findOneAndUpdate(
+      { recipeName },
+      updatedRecipeData,
+      { new: true }
+    );
+
+    if (!updatedRecipe) {
+      return res.status(404).json({ error: "Recipe not found" });
+    }
+
+    res.status(200).json(updatedRecipe);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Delete a recipe by recipeName
+router.delete("/delete/:recipeName", async (req, res) => {
+  const { recipeName } = req.params;
+
+  try {
+    const deletedRecipe = await Recipe.findOneAndDelete({ recipeName });
+
+    if (!deletedRecipe) {
+      return res.status(404).json({ error: "Recipe not found" });
+    }
+
+    res.status(204).end();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

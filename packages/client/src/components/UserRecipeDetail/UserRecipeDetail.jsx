@@ -9,8 +9,7 @@ const UserRecipeDetail= () => {
   const [recipeDetails, setRecipeDetails] = useState(null);
 
   useEffect(() => {
-    // Simulate fetching recipe details from an API or database
-    // Replace this with your actual data fetching logic
+   
     const fetchData = async () => {
       try {
         const response = await axios.get(`/api/recipes`);
@@ -41,7 +40,7 @@ const UserRecipeDetail= () => {
       <div className="d-flex justify-content-center">
         <div className="recipe-card">
           <h1 className="recipe-card-title display-4">{recipeName}</h1>
-          <img src={imgUrl} alt={recipeName} /> {/* Display the image */}
+          <img src={imgUrl} alt={recipeName} /> 
           <div className="recipe-card-body">
             <h3 className="recipe-card-subtitle mb-3">Ingredients:</h3>
             <p>{ingredients}</p>

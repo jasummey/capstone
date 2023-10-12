@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // for making API requests to your backend
+import axios from 'axios'; 
 
 function SearchByIngredients() {
   const [ingredients, setIngredients] = useState('');
